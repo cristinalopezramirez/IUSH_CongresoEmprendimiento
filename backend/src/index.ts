@@ -15,6 +15,7 @@ import preguntasRoutes from "./routes/preguntas";
 import evaluadorRoutes from "./routes/evaluador";
 import asignarEvaluadorEmprendimientoRoutes from "./routes/asignarEvaluadorEmprendimiento";
 import administradorRoutes from "./routes/administrador";
+import inscripcionEventoRoutes from "./routes/inscripcionEvento";
 
 
 dotenv.config();
@@ -48,6 +49,7 @@ server.app.use('/informacionEmprendimiento', informacionEmprendimientoRoutes);
 server.app.use('/evaluador', evaluadorRoutes);
 server.app.use('/asignarEvaluador', asignarEvaluadorEmprendimientoRoutes);
 server.app.use('/administrador', administradorRoutes);
+server.app.use('/inscripcionEvento', inscripcionEventoRoutes);
 
 
 // Conexión de Base de datos

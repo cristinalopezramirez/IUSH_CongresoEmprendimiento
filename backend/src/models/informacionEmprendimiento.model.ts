@@ -29,7 +29,8 @@ const informacionEmprendimientoSchema = new Schema <IInformacionEmprendimiento>(
     idEmprendedor: {
         type: Schema.Types.ObjectId,
         ref: "InformacionGeneral",
-        isRequired: [true, "El id del emprendedor es necesario"]
+        isRequired: [true, "El id del emprendedor es necesario"],
+        unique: true
     },
     fecha: {
         type: String,
