@@ -3,6 +3,7 @@ import EvaluadorRepo from "../repository/evaluadores.repo";
 import { Response, Request } from "express";
 import SectorEmprendimientoRepo from "../repository/sectorEmprendimiento.repo";
 import { AnyKeys } from "mongoose";
+import InstitucionesEducativasRepo from "../repository/institucionesEducativas.repo";
 
 
 export let create = async( req: Request, res: Response) => {
@@ -92,29 +93,58 @@ export let loginEvaluador = async( req:Request, res: Response) => {
 
 export let listarProyectosNoAsociados = async (req: Request, res: Response) => {
     const idEvaluador = req.params.idEvaluador;
+    const result: never[] = [];
     let sector: any;
     let respuesta : any;
     let objetosFiltrados: any;
+    let universidades: any;
+    let proyectos: any;
     
     try {
-        let evaluadorRepo = new EvaluadorRepo();
+        const evaluadorRepo = new EvaluadorRepo();
         const sectorEmprendimiento = new SectorEmprendimientoRepo();
-        sector = await sectorEmprendimiento.obtenerSectorEmprendimiento();
-        console.log(sector);
-        
-        let proyectos = await evaluadorRepo.listarProyectosNoAsociados(String(idEvaluador));
+        const infoIES = new InstitucionesEducativasRepo();
         const opciones = ["Idea", "Desarrollo", "Lanzamiento Temprano"];
+
+        sector = await sectorEmprendimiento.obtenerSectorEmprendimiento();
+        universidades = await infoIES.obtener()
+        proyectos = await evaluadorRepo.listarProyectosNoAsociados(String(idEvaluador));
+
         respuesta = proyectos[0];
+        
         if (respuesta["proyectosNoAsociados"].length > 0 ) {
             objetosFiltrados = respuesta.proyectosNoAsociados.filter((proyecto: any) => opciones.includes(proyecto.estado));
-        }
 
-        res.json({
-            ok: true,
-            data: objetosFiltrados,
-            message: 'OK - Búsqueda de proyectos no asociados a la IES del evaluador y que están en etapa de ideación, desarrollo o lanzamiento temprano',
-            error: null
-        })
+            const result = objetosFiltrados.map((proyecto: any) => {
+                const universidad = universidades.find((u: any) => u._id.toString() === proyecto.idIES.toString());
+                const sectorEncontrado = sector.find((s: any) => s._id.toString() === proyecto.idSector.toString());
+
+                const nombreSector = sectorEncontrado ? sectorEncontrado.sector : 'Sector no encontrado';  
+                const nombreInstitucion = universidad ? universidad.nombre : "Universidad no encontrada";
+
+                return {
+                    ...proyecto,
+                    nombreSector,  
+                    nombreInstitucion,
+                    idIES: undefined,
+                    idSector: undefined  
+                };
+            });
+
+            res.json({
+                ok: true,
+                data: result,
+                message: 'OK - Búsqueda de proyectos no asociados a la IES del evaluador y que están en etapa de ideación, desarrollo o lanzamiento temprano',
+                error: null
+            });
+        } else {
+            res.json({
+                ok: true,
+                data: [],
+                message: 'No hay proyectos en las etapas especificadas.',
+                error: null
+            });
+        }
     } catch (error) {
         res.json({
             ok: false,

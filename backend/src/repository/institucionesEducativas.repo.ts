@@ -25,7 +25,7 @@ class InstitucionesEducativasRepo {
             throw error;
         }
     }
-
+/*
     async obtener(): Promise<InstitucionesEducativasDto[]> {
         try {
             let institucionesEducativasArray: InstitucionesEducativasDto[] = [];
@@ -38,8 +38,43 @@ class InstitucionesEducativasRepo {
             return reject (error);
         }
     }
+*/
 
+    async obtener(): Promise<InstitucionesEducativasDto[]>{
+        try {
+            let institucionesEducativasArray = await InstitucionesEducativas.aggregate([
+                {
+                  '$lookup': {
+                    'from': 'paises', 
+                    'localField': 'paisIES', 
+                    'foreignField': '_id', 
+                    'as': 'pais'
+                  }
+                }, {
+                  '$unwind': {
+                    'path': '$pais'
+                  }
+                }, {
+                  '$project': {
+                    '_id': 1, 
+                    'nombre': 1, 
+                    'paisIES': 1, 
+                    'regionDepartamento': 1, 
+                    'nombreLiderIES': 1, 
+                    'telefonoContacto': 1, 
+                    'correoContacto': 1, 
+                    'urlOficial': 1, 
+                    'nombrePais': '$pais.descripcion'
+                  }
+                }
+              ]);
+            return institucionesEducativasArray;
+        } catch (error) {
+            return reject (error);
+        }
+    }
 
+    
     async obtenerIESPorPais(idPais: string): Promise<InstitucionesEducativasDto[]>{
         try {
             let institucionesPais = await InstitucionesEducativas.aggregate([
