@@ -85,12 +85,14 @@ class InformacionEmprendimientoRepo {
                 }, {
                   $project: {
                     'fecha': 1, 
-                    '_id': 0, 
+                    '_id': 1, 
                     'estado': 1, 
                     'sector': 1, 
                     'IES': 1, 
                     'infoEmprendedor': 1, 
-                    'pais': 1
+                    'pais': 1,
+                    'descripcionIdea':1,
+                    'propuestaSolucion': 1
                   }
                 }
               ]);

@@ -24,6 +24,7 @@ class EvaluadorRepo {
         }
     }
 
+    /*
     async obtener(): Promise<EvaluadorDto[]> {
         try {
             let evaluadorArray: EvaluadorDto[] = [];
@@ -35,6 +36,52 @@ class EvaluadorRepo {
         } catch (error) {
             return reject (error);
         }
+    }
+*/
+
+    async obtener(): Promise<any> {
+      try {
+        let infoEvaluador = await Evaluador.aggregate([
+          {
+            '$lookup': {
+              'from': 'paises', 
+              'localField': 'idPais', 
+              'foreignField': '_id', 
+              'as': 'infoPais'
+            }
+          }, {
+            '$lookup': {
+              'from': 'institucionesEducativas', 
+              'localField': 'idIES', 
+              'foreignField': '_id', 
+              'as': 'infoIES'
+            }
+          }, {
+            '$unwind': {
+              'path': '$infoIES'
+            }
+          }, {
+            '$unwind': {
+              'path': '$infoPais'
+            }
+          }, {
+            '$project': {
+              '_id': 1, 
+              'nombre': 1, 
+              'telefono': 1, 
+              'correo': 1, 
+              'idIES': 1, 
+              'idPais': 1, 
+              'documentoIdentidad': 1, 
+              'nombrePais': '$infoPais.descripcion', 
+              'nombreInstitucion': '$infoIES.nombre'
+            }
+          }
+        ]);
+        return infoEvaluador;
+      } catch (error) {
+        throw new Error("Error al obtener información del evaluador");
+      }
     }
 
     async obtenerEvaluadoresPorPais(idPais: string): Promise<EvaluadorDto[]> {

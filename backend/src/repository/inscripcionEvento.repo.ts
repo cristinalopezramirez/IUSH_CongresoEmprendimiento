@@ -27,6 +27,45 @@ class InscripcionEventoRepo {
         }
     }
 
+
+    async obtener(): Promise<InscripcionEventoDto[]>{
+        try {
+            let inscripcionEventoArray = await InscripcionEvento.aggregate([
+                {
+                  $lookup: {
+                    from: "paises",
+                    localField: "pais",
+                    foreignField: "_id",
+                    as: "infoPais"
+                  }
+                },
+                {
+                  $unwind: {
+                    path: "$infoPais"
+                  }
+                },
+                {
+                  $project: {
+                    _id: 1,
+                    nombres: 1,
+                    apellidos: 1,
+                    correo: 1,
+                    telefono: 1,
+                    nombrePais: "$infoPais.descripcion",
+                    ciudad: 1,
+                    tipoAsistente: 1,
+                    interesesEvento: 1,
+                    comoTeEnterasteEvento: 1,
+                    aceptaEnvioComunicacion: 1
+                  }
+                }
+              ]);
+            return inscripcionEventoArray;
+        } catch (error) {
+            return reject(error);
+        }
+    }
+    /*
     async obtener():  Promise<InscripcionEventoDto[]> {
         try {
             let inscripcionEventoArray: InscripcionEventoDto[] = [];
@@ -39,6 +78,7 @@ class InscripcionEventoRepo {
             return reject (error);
         }
     }
+    */
 }
 
 export default InscripcionEventoRepo;
