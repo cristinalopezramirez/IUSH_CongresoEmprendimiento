@@ -2,7 +2,6 @@ import EvaluadorDto from "../dtos/evaluadores.dto";
 import EvaluadorRepo from "../repository/evaluadores.repo";
 import { Response, Request } from "express";
 import SectorEmprendimientoRepo from "../repository/sectorEmprendimiento.repo";
-import { AnyKeys } from "mongoose";
 import InstitucionesEducativasRepo from "../repository/institucionesEducativas.repo";
 
 

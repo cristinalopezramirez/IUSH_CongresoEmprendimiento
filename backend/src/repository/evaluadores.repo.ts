@@ -24,20 +24,6 @@ class EvaluadorRepo {
         }
     }
 
-    /*
-    async obtener(): Promise<EvaluadorDto[]> {
-        try {
-            let evaluadorArray: EvaluadorDto[] = [];
-            let docs = await Evaluador.find();
-            docs.forEach((evaluadorDocument: any) => {
-                evaluadorArray.push(new EvaluadorDto(evaluadorDocument));
-            });
-            return evaluadorArray;
-        } catch (error) {
-            return reject (error);
-        }
-    }
-*/
 
     async obtener(): Promise<any> {
       try {
