@@ -23,7 +23,6 @@ export let obtener = async( req: Request, res:Response) => {
         }
 
         let colecciones = ['institucionesEducativas','inscripcionEvento','evaluadores','informacionEmprendimientos']
-
         let instituciones = await institucionesEducativas.obtener();
         let inscripcionEvento = await inscripcionesEvento.obtener();
         let evaluador = await evaluadores.obtener();
@@ -58,10 +57,8 @@ export let obtener = async( req: Request, res:Response) => {
                     csvStream.write(`${registro}\n`);
                 })
             }
-            
             csvStream.end();
         }
-        
         res.json({
             ok: true,
             message: "OK - CSV generado con delitos registrados",
@@ -72,6 +69,201 @@ export let obtener = async( req: Request, res:Response) => {
             ok: false,
             error: error,
             message: "Error al generar CSV"
+        });
+    }
+}
+
+export let obtenerEvaluadores = async( req: Request, res:Response) => {
+    let csvStream: any;
+    const evaluadores = new EvaluadorRepo();
+ 
+    try {
+        let evaluador = await evaluadores.obtener();
+        let registro = ``;
+        const fs = require('fs');
+        const path = require('path');
+        const basePath = path.join(__dirname, '..'); 
+        const informesPath = path.join(basePath, 'informes');
+
+        if (!fs.existsSync(informesPath)) {
+            fs.mkdirSync(informesPath, { recursive: true });
+        }
+
+        let nombreArchivo = path.join(informesPath, `evaluadores.csv`);
+        csvStream = fs.createWriteStream(nombreArchivo);
+
+        csvStream.write('nombre; telefono; correo; documentoIdentidad; nombrePais; nombreInstitucion\n');
+        evaluador.forEach((doc: any) => {
+            registro = `${doc.nombre};${doc.telefono};${doc.correo};${doc.documentoIdentidad};${doc.nombrePais};${doc.nombreInstitucion}`;
+            csvStream.write(`${registro}\n`);
+        })
+
+        csvStream.end();
+        csvStream.on('finish', () => {
+            res.download(nombreArchivo, nombreArchivo, (err) => {
+                if (err) {
+                    console.error('Error al enviar el archivo:', err);
+                    res.status(500).json({
+                        ok: false,
+                        message: "Error al descargar el archivo de evaluadores",
+                        error: err.message
+                    });
+                } else {
+                    console.log('Archivo enviado con éxito.');
+                }
+            });
+        });
+    } catch (error: any) {
+        res.json({
+            ok: false,
+            error: error,
+            message: "Error al generar CSV de evaluadores"
+        });
+    }
+}
+
+export let obtenerEmprendimientos = async( req: Request, res:Response) => {
+    let csvStream: any;
+    const informacionEmprendimiento = new InformacionEmprendimientoRepo();
+    
+    try {
+        let emprendimientos = await informacionEmprendimiento.obtener();
+        let registro = ``;
+        const fs = require('fs');
+        const path = require('path');
+        const basePath = path.join(__dirname, '..'); 
+        const informesPath = path.join(basePath, 'informes');
+
+        if (!fs.existsSync(informesPath)) {
+            fs.mkdirSync(informesPath, { recursive: true });
+        }
+
+        let nombreArchivo = path.join(informesPath, `emprendimientos.csv`);
+        csvStream = fs.createWriteStream(nombreArchivo);
+
+        csvStream.write('nombres; apellidos; pais; ciudadResidencia; documentoIdentidad; correoElectronicoPersonal; correoElectronicoInstitucional; numeroTelefono; institucionEducativa; fechaLanzamiento; sector; estado; descripcionIdea; propuestaSolucion\n');
+        emprendimientos.forEach((doc: any) => {
+            registro = `${doc.infoEmprendedor["nombres"]};${doc.infoEmprendedor["apellidos"]};${doc.pais["descripcion"]};${doc.infoEmprendedor["ciudadResidencia"]};${doc.infoEmprendedor["documentoIdentidad"]};${doc.infoEmprendedor["correoElectronicoPersonal"]};${doc.infoEmprendedor["correoElectronicoInstitucional"]};${doc.infoEmprendedor["numeroTelefono"]};${doc.IES["nombre"]};${doc.fecha};${doc.sector["sector"]};${doc.estado};${doc.descripcionIdea};${doc.propuestaSolucion}`;
+            csvStream.write(`${registro}\n`);
+        })
+
+        csvStream.end();
+        csvStream.on('finish', () => {
+            res.download(nombreArchivo, nombreArchivo, (err) => {
+                if (err) {
+                    console.error('Error al enviar el archivo:', err);
+                    res.status(500).json({
+                        ok: false,
+                        message: "Error al descargar el archivo de emprendimientos",
+                        error: err.message
+                    });
+                } else {
+                    console.log('Archivo enviado con éxito.');
+                }
+            });
+        });
+    } catch (error: any) {
+        res.json({
+            ok: false,
+            error: error,
+            message: "Error al generar CSV de emprendimientos"
+        });
+    }
+}
+
+export let obtenerInscritosEvento = async( req: Request, res:Response) => {
+    let csvStream: any;
+    const inscripcionesEvento = new InscripcionEventoRepo();
+ 
+    try {
+        let inscripcionEvento = await inscripcionesEvento.obtener();
+        let registro = ``;
+        const fs = require('fs');
+        const path = require('path');
+        const basePath = path.join(__dirname, '..'); 
+        const informesPath = path.join(basePath, 'informes');
+
+        if (!fs.existsSync(informesPath)) {
+            fs.mkdirSync(informesPath, { recursive: true });
+        }
+
+        let nombreArchivo = path.join(informesPath, `inscritosEvento.csv`);
+        csvStream = fs.createWriteStream(nombreArchivo);
+        csvStream.write('nombres; apellidos; correo; telefono; nombrePais; ciudad; tipoAsistente; aceptaEnvioComunicacion\n');
+            inscripcionEvento.forEach((doc:any) => {
+                registro = `${doc.nombres};${doc.apellidos};${doc.correo};${doc.telefono};${doc.nombrePais};${doc.ciudad};${doc.tipoAsistente};${doc.aceptaEnvioComunicacion}`;
+                    csvStream.write(`${registro}\n`);
+            })
+
+        csvStream.end();
+        csvStream.on('finish', () => {
+            res.download(nombreArchivo, nombreArchivo, (err) => {
+                if (err) {
+                    console.error('Error al enviar el archivo:', err);
+                    res.status(500).json({
+                        ok: false,
+                        message: "Error al descargar el archivo de inscritos al evento",
+                        error: err.message
+                    });
+                } else {
+                    console.log('Archivo enviado con éxito.');
+                }
+            });
+        });
+    } catch (error: any) {
+        res.json({
+            ok: false,
+            error: error,
+            message: "Error al generar CSV de inscritos al evento"
+        });
+    }
+}
+
+export let obtenerUniversidades = async( req: Request, res:Response) => {
+    let csvStream: any;
+    const institucionesEducativas = new InstitucionesEducativasRepo();
+ 
+    try {
+        let instituciones = await institucionesEducativas.obtener();
+        let registro = ``;
+        const fs = require('fs');
+        const path = require('path');
+        const basePath = path.join(__dirname, '..'); 
+        const informesPath = path.join(basePath, 'informes');
+
+        if (!fs.existsSync(informesPath)) {
+            fs.mkdirSync(informesPath, { recursive: true });
+        }
+
+        let nombreArchivo = path.join(informesPath, `universidades.csv`);
+        csvStream = fs.createWriteStream(nombreArchivo);
+
+        csvStream.write('nombre;nombrePais;regionDepartamento;nombreLiderIES;correoContacto;telefonoContacto;urlOficial\n');
+        instituciones.forEach((doc:any) => {
+            registro = `${doc.nombre};${doc.nombrePais};${doc.regionDepartamento};${doc.nombreLiderIES};${doc.correoContacto};${doc.telefonoContacto};${doc.urlOficial}`;
+            csvStream.write(`${registro}\n`);
+        })
+
+        csvStream.end();
+        csvStream.on('finish', () => {
+            res.download(nombreArchivo, nombreArchivo, (err) => {
+                if (err) {
+                    console.error('Error al enviar el archivo:', err);
+                    res.status(500).json({
+                        ok: false,
+                        message: "Error al descargar el archivo de universidades",
+                        error: err.message
+                    });
+                } else {
+                    console.log('Archivo enviado con éxito.');
+                }
+            });
+        });
+    } catch (error: any) {
+        res.json({
+            ok: false,
+            error: error,
+            message: "Error al generar CSV de universidades"
         });
     }
 }

@@ -19,7 +19,8 @@ class InformacionEmprendimientoRepo {
                 numeroEmprendimiento: ++numberOfDocuments,
                 estado: informacionEmprendimientoDto.getEstado(),
                 descripcionIdea: informacionEmprendimientoDto.getDescripcionIdea(),
-                propuestaSolucion: informacionEmprendimientoDto.getPropuestaSolucion()  
+                propuestaSolucion: informacionEmprendimientoDto.getPropuestaSolucion(),
+                asignado: informacionEmprendimientoDto.getAsignado()
             });
             let createdDocument = await InformacionEmprendimiento.create(informacionEmprendimientoModel);
             return new InformacionEmprendimientoDto(createdDocument);
@@ -244,6 +245,17 @@ class InformacionEmprendimientoRepo {
         throw new Error("Error al obtener número de emprendimientos registrados por IES")
       }
     }
+
+    async actualizarPorId(idInfoEmprendimiento: string, infoEmprendimiento: any): Promise<Boolean>{
+      try {
+        let infoEmprendimientoActualizada = await InformacionEmprendimiento.findByIdAndUpdate(idInfoEmprendimiento, {... infoEmprendimiento});
+        return true;
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    
 
 
 

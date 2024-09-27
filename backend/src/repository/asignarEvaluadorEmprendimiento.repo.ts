@@ -34,6 +34,42 @@ class AsignarEvaluadorEmprendimientoRepo {
         }
     }
 
+    async obtenerPorIdEvaluador (idEvaluador: string): Promise<AsignarEvaluadorEmprendimientoDto[]>{
+        try {
+            let informacion = await AsignarEvaluadorEmprendimientos.aggregate([
+                {
+                  '$match': {
+                    'idEvaluador': new mongoose.Types.ObjectId(idEvaluador)
+                  }
+                }, {
+                  '$unwind': {
+                    'path': '$emprendimientos'
+                  }
+                }, {
+                  '$lookup': {
+                    'from': 'informacionEmprendimiento', 
+                    'localField': 'emprendimientos', 
+                    'foreignField': '_id', 
+                    'as': 'informacionEmprendimiento'
+                  }
+                }, {
+                  '$unwind': {
+                    'path': '$informacionEmprendimiento'
+                  }
+                }, {
+                  '$project': {
+                    '_id': 1, 
+                    'idEvaluador': 1, 
+                    'informacionEmprendimiento': 1
+                  }
+                }
+              ]);
+              return informacion;
+        } catch (error) {
+            return reject(error)
+        }
+    }
+
     
 
     
