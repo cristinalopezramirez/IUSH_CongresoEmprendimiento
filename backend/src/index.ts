@@ -17,6 +17,7 @@ import asignarEvaluadorEmprendimientoRoutes from "./routes/asignarEvaluadorEmpre
 import administradorRoutes from "./routes/administrador";
 import inscripcionEventoRoutes from "./routes/inscripcionEvento";
 import excelServiceRoutes from "./routes/excelService";
+import evaluacionProyectosRoutes from "./routes/evaluacionProyectos";
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ server.app.use('/asignarEvaluador', asignarEvaluadorEmprendimientoRoutes);
 server.app.use('/administrador', administradorRoutes);
 server.app.use('/inscripcionEvento', inscripcionEventoRoutes);
 server.app.use('/excelService', excelServiceRoutes);
+server.app.use('/evaluacionProyectos', evaluacionProyectosRoutes);
 
 // Conexión de Base de datos
 const URI = process.env.MONGODB_URL as string;

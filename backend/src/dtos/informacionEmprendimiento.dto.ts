@@ -12,6 +12,7 @@ export default class InformacionEmprendimientoDto {
     private numeroEmprendimiento: number;
     private descripcionIdea: string;
     private propuestaSolucion: string;
+    private asignado: boolean;
 
     constructor(data?: any) {
         if(!data) {
@@ -25,6 +26,7 @@ export default class InformacionEmprendimientoDto {
             this.numeroEmprendimiento = 0;
             this.descripcionIdea = "";
             this.propuestaSolucion = "";
+            this.asignado = false;
         }else {
             this._id = data.id;
             this.idSector = data.idSector; 
@@ -37,6 +39,7 @@ export default class InformacionEmprendimientoDto {
             this.numeroEmprendimiento = data.numeroEmprendimiento;
             this.descripcionIdea = data.descripcionIdea;
             this.propuestaSolucion = data.propuestaSolucion;
+            this.asignado = data.asignado;
         }
     }
 
@@ -82,6 +85,9 @@ export default class InformacionEmprendimientoDto {
 
     getPropuestaSolucion () {
         return this.propuestaSolucion
+    }
+    getAsignado () {
+        return this.asignado
     }
 }
 

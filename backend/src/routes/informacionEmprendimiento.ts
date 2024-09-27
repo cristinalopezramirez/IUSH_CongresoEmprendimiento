@@ -4,6 +4,8 @@ import * as controller from "../controllers/informacionEmprendimiento.controller
 const informacionEmprendimientoRoutes = Router();
 
 informacionEmprendimientoRoutes.post('/crear', controller.create);
+informacionEmprendimientoRoutes.post('/actualizarPorId', controller.actualizarPorId);
+
 informacionEmprendimientoRoutes.get('/obtener', controller.obtener);
 informacionEmprendimientoRoutes.get('/obtenerPorIdEmprendedor/:idEmprendedor', controller.obtenerPorIdEmprendedor);
 informacionEmprendimientoRoutes.get('/obtenerPorIdSector/:idSector', controller.obtenerPorIdSector);
@@ -14,7 +16,6 @@ informacionEmprendimientoRoutes.get('/numeroEmprendimientosPorSector', controlle
 informacionEmprendimientoRoutes.get('/numeroEmprendimientosPorEstado', controller.numeroEmprendimientosPorEstado);
 informacionEmprendimientoRoutes.get('/numeroEmprendimientosPorPais', controller.numeroEmprendimientosPorPais);
 informacionEmprendimientoRoutes.get('/numeroEmprendimientosPorIES', controller.numeroEmprendimientosPorIES);
-
 
 
 export default informacionEmprendimientoRoutes;

@@ -287,3 +287,25 @@ export let numeroEmprendimientosPorIES = async (req: Request, res: Response) => 
         })
     }
 }
+
+export let actualizarPorId = async (req: Request, res: Response) => {
+    try {
+        const body = req.body;
+        console.log(body);
+        
+        const informacionEmprendimientoRepo = new InformacionEmprendimientoRepo();
+        const answ = await informacionEmprendimientoRepo.actualizarPorId(body.id, body);
+        res.json({
+            ok: true,
+            data: answ,
+            message: 'Información emprendimiento actualizada con éxito',
+            error: null
+        });
+    } catch (error) {
+        res.json({
+            ok: false,
+            error: error,
+            message: 'Error al actualizar información de emprendimiento'
+        });
+    }
+}

@@ -1,7 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
 
-
 interface IInformacionEmprendimiento extends Document {
  idSector: Schema.Types.ObjectId;
  idIES: Schema.Types.ObjectId;
@@ -13,6 +12,7 @@ interface IInformacionEmprendimiento extends Document {
  numeroEmprendimiento: number;
  descripcionIdea: string;
  propuestaSolucion: string;
+ asignado: false;
 }
 
 const informacionEmprendimientoSchema = new Schema <IInformacionEmprendimiento>({
@@ -61,6 +61,9 @@ const informacionEmprendimientoSchema = new Schema <IInformacionEmprendimiento>(
     },
     propuestaSolucion: {
         type: String
+    },
+    asignado: {
+        type: Boolean
     }
 });
 

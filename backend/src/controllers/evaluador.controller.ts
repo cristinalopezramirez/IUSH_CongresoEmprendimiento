@@ -68,19 +68,18 @@ export let obtenerEvaluadoresPorPais = async (req: Request, res: Response) => {
 export let loginEvaluador = async( req:Request, res: Response) => {
     const documentoIdentidad = req.params.documentoIdentidad;
     const correo = req.params.correo;
-    let login = true;
+    let login: any;
     try {
         let evaluadorRepo = new EvaluadorRepo();
         let evaluador = await evaluadorRepo.loginEvaluador(String(documentoIdentidad), String(correo));
-        if (evaluador.length == 0) {
-            login = false
+        if (evaluador.length != 0) {
+            res.json({
+                ok: true,
+                data: evaluador[0],
+                message: 'OK - Login evaluador por documento/correo',
+                error: null
+            })
         }
-        res.json({
-            ok: true,
-            data: login,
-            message: 'OK - Login evaluador por documento/correo',
-            error: null
-        })
     } catch (error) {
         res.json({
             ok: false,
