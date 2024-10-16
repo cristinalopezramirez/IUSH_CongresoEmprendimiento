@@ -13,6 +13,7 @@ interface IInscripcionEvento extends Document {
     comoTeEnterasteEvento:[];
     aceptaEnvioComunicacion: boolean;
     aceptaTerminosYCondicionesTratamientoDatos: boolean;
+    confirmaAsistencia: boolean;
 }
 
 const inscripcionEventoSchema = new Schema<IInscripcionEvento>({
@@ -78,6 +79,9 @@ const inscripcionEventoSchema = new Schema<IInscripcionEvento>({
         type: Boolean,
         required: [true, "Indicar si acepta los términos es necesario"]
     },
+    confirmaAsistencia: {
+        type: Boolean
+    }
 });
 
 export const InscripcionEvento = model<IInscripcionEvento>('InscripcionEvento', inscripcionEventoSchema, 'inscripcionEvento');

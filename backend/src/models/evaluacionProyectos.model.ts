@@ -4,6 +4,7 @@ interface IEvaluacionProyectos extends Document {
  evaluador: Schema.Types.ObjectId;
  emprendimiento: Schema.Types.ObjectId;
  evaluacion: [];
+ promedio: Number;
 }
 
 const evaluacionProyectosSchema = new Schema <IEvaluacionProyectos>({
@@ -15,7 +16,8 @@ const evaluacionProyectosSchema = new Schema <IEvaluacionProyectos>({
     emprendimiento: {
         type: Schema.Types.ObjectId,
         ref: 'informacionEmprendimiento',
-        required: [true, "El identificador del emprendimiento es necesario"]
+        required: [true, "El identificador del emprendimiento es necesario"],
+        unique: true
     },
     evaluacion: [{
         etapa: {
@@ -32,7 +34,10 @@ const evaluacionProyectosSchema = new Schema <IEvaluacionProyectos>({
                 type: Number
             }
         }]
-    }]
+    }],
+    promedio: {
+        type: Number
+    }
 });
 
 export const EvaluacionProyectos = model <IEvaluacionProyectos>('EvaluacionProyectos', evaluacionProyectosSchema, 'evaluacionProyectos');
