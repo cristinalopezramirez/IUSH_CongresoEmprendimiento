@@ -16,7 +16,8 @@ class InscripcionEventoRepo {
                 interesesEvento: inscripcionEventoDto.getInteresesEvento(),
                 comoTeEnterasteEvento: inscripcionEventoDto.getComoTeEnterasteEvento(),
                 aceptaEnvioComunicacion: inscripcionEventoDto.getAceptarEnvioComunicacion(),
-                aceptaTerminosYCondicionesTratamientoDatos: inscripcionEventoDto.getAceptaTerminosYCondicionesTratamientoDatos()
+                aceptaTerminosYCondicionesTratamientoDatos: inscripcionEventoDto.getAceptaTerminosYCondicionesTratamientoDatos(),
+                confirmaAsistencia: inscripcionEventoDto.getConfirmaAsistencia()
             })
             let createdDocument = await InscripcionEvento.create(inscripcionEventoModel);
             let createdTestDocument: InscripcionEventoDto = new InscripcionEventoDto(createdDocument);
@@ -79,6 +80,54 @@ class InscripcionEventoRepo {
         }
     }
     */
+
+    async verificarTipoInscripcion(correo: string): Promise<any>{
+      try {
+        let verificacion = await InscripcionEvento.aggregate([
+          {
+            $match: {
+              correo: correo
+            }
+          },{
+            $match: {
+              tipoAsistente: "INVITADO ESPECIAL (INVITADO EXTRANJERO, ORGANIZADOR Y ALIADO ESTRATÉGICO)"
+            }
+          }
+        ]);
+        return verificacion;
+      } catch (error) {
+        console.log(error);
+            throw error;
+      }
+    }
+
+    async confirmarAsistenciaEvento (correo: string): Promise<any> {
+      try {
+        let confirmar = await InscripcionEvento.aggregate([
+          {
+            $match: {
+              correo: correo
+            }
+          }
+        ]);
+        return confirmar;
+      } catch (error) {
+        console.log(error);
+            throw error;
+      }
+    }
+
+    async actualizarPorId(idAsistente: string, infoAsistente: any): Promise<Boolean>{
+      try {
+          let asistenciaActualizada = await InscripcionEvento.findByIdAndUpdate(idAsistente, {... infoAsistente});
+          return true;
+      } catch (error) {
+          throw new Error("Error al actualizar asistencia al evento")
+    
+      }
+  }
+
+
 }
 
 export default InscripcionEventoRepo;

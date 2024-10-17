@@ -99,20 +99,20 @@ export let obtenerEvaluadores = async( req: Request, res:Response) => {
         })
 
         csvStream.end();
+
         csvStream.on('finish', () => {
-            res.download(nombreArchivo, nombreArchivo, (err) => {
+            res.header('Content-Type', 'text/csv');
+            res.attachment('evaluadores.csv');
+            res.sendFile(nombreArchivo, (err) => {
                 if (err) {
-                    console.error('Error al enviar el archivo:', err);
-                    res.status(500).json({
-                        ok: false,
-                        message: "Error al descargar el archivo de evaluadores",
-                        error: err.message
-                    });
-                } else {
-                    console.log('Archivo enviado con éxito.');
+                    console.log('Error al enviar el archivo:', err);
+                    if (!res.headersSent) {
+                        res.status(500).send('Error al descargar el archivo');
+                    }
                 }
             });
         });
+
     } catch (error: any) {
         res.json({
             ok: false,
@@ -149,16 +149,14 @@ export let obtenerEmprendimientos = async( req: Request, res:Response) => {
 
         csvStream.end();
         csvStream.on('finish', () => {
-            res.download(nombreArchivo, nombreArchivo, (err) => {
+            res.header('Content-Type', 'text/csv');
+            res.attachment('emprendimientos.csv');
+            res.sendFile(nombreArchivo, (err) => {
                 if (err) {
-                    console.error('Error al enviar el archivo:', err);
-                    res.status(500).json({
-                        ok: false,
-                        message: "Error al descargar el archivo de emprendimientos",
-                        error: err.message
-                    });
-                } else {
-                    console.log('Archivo enviado con éxito.');
+                    console.log('Error al enviar el archivo:', err);
+                    if (!res.headersSent) {
+                        res.status(500).send('Error al descargar el archivo');
+                    }
                 }
             });
         });
@@ -197,16 +195,14 @@ export let obtenerInscritosEvento = async( req: Request, res:Response) => {
 
         csvStream.end();
         csvStream.on('finish', () => {
-            res.download(nombreArchivo, nombreArchivo, (err) => {
+            res.header('Content-Type', 'text/csv');
+            res.attachment('inscritosEvento.csv');
+            res.sendFile(nombreArchivo, (err) => {
                 if (err) {
-                    console.error('Error al enviar el archivo:', err);
-                    res.status(500).json({
-                        ok: false,
-                        message: "Error al descargar el archivo de inscritos al evento",
-                        error: err.message
-                    });
-                } else {
-                    console.log('Archivo enviado con éxito.');
+                    console.log('Error al enviar el archivo:', err);
+                    if (!res.headersSent) {
+                        res.status(500).send('Error al descargar el archivo');
+                    }
                 }
             });
         });
@@ -246,16 +242,14 @@ export let obtenerUniversidades = async( req: Request, res:Response) => {
 
         csvStream.end();
         csvStream.on('finish', () => {
-            res.download(nombreArchivo, nombreArchivo, (err) => {
+            res.header('Content-Type', 'text/csv');
+            res.attachment('universidades.csv');
+            res.sendFile(nombreArchivo, (err) => {
                 if (err) {
-                    console.error('Error al enviar el archivo:', err);
-                    res.status(500).json({
-                        ok: false,
-                        message: "Error al descargar el archivo de universidades",
-                        error: err.message
-                    });
-                } else {
-                    console.log('Archivo enviado con éxito.');
+                    console.log('Error al enviar el archivo:', err);
+                    if (!res.headersSent) {
+                        res.status(500).send('Error al descargar el archivo');
+                    }
                 }
             });
         });

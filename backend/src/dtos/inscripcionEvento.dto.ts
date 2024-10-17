@@ -11,7 +11,7 @@ export default class InscripcionEventoDto {
     private comoTeEnterasteEvento: [];
     private aceptaEnvioComunicacion:  boolean;
     private aceptaTerminosYCondicionesTratamientoDatos:  boolean;
-
+    private confirmaAsistencia: boolean;
 
 
     constructor(data?: any) {
@@ -27,6 +27,7 @@ export default class InscripcionEventoDto {
             this.comoTeEnterasteEvento =  [];
             this.aceptaEnvioComunicacion =  false; 
             this.aceptaTerminosYCondicionesTratamientoDatos = false; 
+            this.confirmaAsistencia = false;
         } else {
             this._id =  data.id;
             this.nombres =  data.nombres;
@@ -40,6 +41,7 @@ export default class InscripcionEventoDto {
             this.comoTeEnterasteEvento =  data.comoTeEnterasteEvento;
             this.aceptaEnvioComunicacion =  data.aceptaEnvioComunicacion;
             this.aceptaTerminosYCondicionesTratamientoDatos =  data.aceptaTerminosYCondicionesTratamientoDatos;
+            this.confirmaAsistencia = data.confirmaAsistencia;
         }
     }
 
@@ -90,5 +92,9 @@ export default class InscripcionEventoDto {
 
     getAceptaTerminosYCondicionesTratamientoDatos(): boolean {
         return this.aceptaTerminosYCondicionesTratamientoDatos;
+    }
+
+    getConfirmaAsistencia(): boolean {
+        return this.confirmaAsistencia;
     }
 }       

@@ -18,6 +18,7 @@ import administradorRoutes from "./routes/administrador";
 import inscripcionEventoRoutes from "./routes/inscripcionEvento";
 import excelServiceRoutes from "./routes/excelService";
 import evaluacionProyectosRoutes from "./routes/evaluacionProyectos";
+import etapaPitchRoutes from "./routes/etapaPitch";
 
 dotenv.config();
 
@@ -53,6 +54,7 @@ server.app.use('/administrador', administradorRoutes);
 server.app.use('/inscripcionEvento', inscripcionEventoRoutes);
 server.app.use('/excelService', excelServiceRoutes);
 server.app.use('/evaluacionProyectos', evaluacionProyectosRoutes);
+server.app.use('/etapaPitch', etapaPitchRoutes);
 
 // Conexión de Base de datos
 const URI = process.env.MONGODB_URL as string;
