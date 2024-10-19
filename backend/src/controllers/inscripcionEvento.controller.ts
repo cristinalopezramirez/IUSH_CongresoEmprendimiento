@@ -66,10 +66,12 @@ export let verificarTipoInscripcion = async (req: Request, res: Response) => {
 }
 
 export let confirmarAsistenciaEvento = async (req: Request, res: Response) => {
-    const correo = req.params.correo;  
+    const correo = req.body.correo;  
+    const telefono = req.body.telefono;
     let tipoAsistente = "";  
+    console.log(correo, " y ", telefono);
+    
     try {
-        
         let InscripcionEventoRepository = new InscripcionEventoRepo();
         let confirmarAsistenciaEvento = await InscripcionEventoRepository.confirmarAsistenciaEvento(correo);
         console.log(confirmarAsistenciaEvento);
@@ -82,20 +84,22 @@ export let confirmarAsistenciaEvento = async (req: Request, res: Response) => {
         } else {
             tipoAsistente = "USTED NO ESTÁ REGISTRADO, VERIFIQUE SU CORREO Y/O REALICE LA INSCRIPCIÓN"
         }
-    
         let datos = {
             "titulo": tipoAsistente,
             "mensaje": "Bienvenido al Congreso Iberoamericano de Universidades"
         };
         let actualizar = {
             "id": confirmarAsistenciaEvento[0]["_id"],
+            "telefono": telefono,
             "confirmaAsistencia": true
         }
+        console.log("Actualizar: ",actualizar);
+        
         await InscripcionEventoRepository.actualizarPorId(actualizar.id, actualizar);
         res.json({
             ok:true,
             data: datos,
-            message: "Consulta realizada con éxito",
+            message: "Confirmación asistencia exitosa",
             error:null
         });
     } catch (error) {

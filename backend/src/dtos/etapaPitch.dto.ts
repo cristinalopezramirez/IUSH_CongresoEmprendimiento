@@ -98,7 +98,7 @@ export default class EtapaPitchDto {
         return this.sector
     }
 
-    getCorreoElecgetCorreoElectronicoPersonal(): String {
+    getCorreoElectronicoCorreoElectronicoPersonal(): String {
         return this.correoElectronicoPersonal;
     }
 

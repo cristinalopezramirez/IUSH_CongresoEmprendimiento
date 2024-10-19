@@ -121,7 +121,10 @@ class EvaluacionProyectosRepo {
             ]);
               return proyectosEvaluados;
         } catch (error) {
-            throw new Error("Error al obtener proyectos evaluados");
+          console.log(error);
+          throw new Error("Error al obtener proyectos evaluados");
+            
+            
         }
       }
 
