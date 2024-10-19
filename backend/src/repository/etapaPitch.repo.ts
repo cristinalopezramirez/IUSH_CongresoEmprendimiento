@@ -17,7 +17,7 @@ class EtapaPitchRepo {
                 pais : etapaPitchDto.getPais(),
                 integrantes : etapaPitchDto.getIntegrantes(),
                 sector : etapaPitchDto.getSector(),
-                correoElectronicoPersonal : etapaPitchDto.getCorreoElecgetCorreoElectronicoPersonal(),
+                correoElectronicoPersonal : etapaPitchDto.getCorreoElectronicoCorreoElectronicoPersonal(),
                 correoElectronicoInstitucional : etapaPitchDto.getCorreoElectronicoInstitucional(),
                 pasaAPitch : etapaPitchDto.getPasaAPitch()
             });
@@ -25,7 +25,8 @@ class EtapaPitchRepo {
             let createdTestDocument: EtapaPitchDto = new EtapaPitchDto(createdDocument);
             return createdTestDocument;
         } catch (error) {
-            throw new Error("Error al almaenar proyecto en etapa pitch");
+            console.error('Error al almacenar proyecto en etapa pitch: ', error);
+            throw new Error("Error al almacenar proyecto en etapa pitch");
         }
     }
 
