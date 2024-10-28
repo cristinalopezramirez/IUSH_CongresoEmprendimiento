@@ -1,0 +1,203 @@
+<div class="container mt-5">
+    <form [formGroup]="registroCongresoForm" (ngSubmit)="inscribirseAlCongreso()" novalidate>
+        <div class="card p-3 mb-3">
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label for="nombres" class="form-label">Nombres</label>
+                    <input type="text" id="nombres" formControlName="nombres" class="form-control"
+                        placeholder="Ingresa tus nombres" />
+                    <div *ngIf="registroCongresoForm.get('nombres')?.invalid && 
+                    registroCongresoForm.get('nombres')?.touched" class="text-danger">
+                        <small>
+                            El nombre es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input type="text" id="apellidos" formControlName="apellidos" class="form-control"
+                        placeholder="Ingresa tus apellidos" />
+                    <div *ngIf="registroCongresoForm.get('apellidos')?.invalid && 
+                    registroCongresoForm.get('apellidos')?.touched" class="text-danger">
+                        <small>
+                            El apellido es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                    <input type="email" id="correo" formControlName="correo" class="form-control"
+                        placeholder="ejemplo@dominio.com" />
+                    <div *ngIf="registroCongresoForm.get('correo')?.invalid && registroCongresoForm.get('correo')?.touched"
+                        class="text-danger">
+                        <small>
+                            Ingresa un correo electrónico válido.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="tel" id="telefono" formControlName="telefono" class="form-control"
+                        placeholder="Ingresa tu teléfono" />
+                    <div *ngIf="registroCongresoForm.get('telefono')?.invalid && registroCongresoForm.get('telefono')?.touched"
+                        class="text-danger">
+                        <small>
+                            El teléfono es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="pais" class="form-label">País</label>
+                    <select id="pais" formControlName="pais" class="form-select">
+                        <option value="" disabled selected>Selecciona tu país</option>
+                        <option *ngFor="let pais of paises" [value]="pais._id">{{ pais.descripcion }}</option>
+                    </select>
+                    <div *ngIf="registroCongresoForm.get('pais')?.touched && registroCongresoForm.get('pais')?.invalid"
+                        class="text-danger">
+                        <small>Debe seleccionar un país.</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="ciudad" class="form-label">Ciudad</label>
+                    <input type="text" id="ciudad" formControlName="ciudad" class="form-control"
+                        placeholder="Ingresa tu ciudad" />
+                    <div *ngIf="registroCongresoForm.get('ciudad')?.invalid && registroCongresoForm.get('ciudad')?.touched"
+                        class="text-danger">
+                        <small>
+                            La ciudad es requerida.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label for="tipoAsistente" class="form-label">Tipo de asistente</label>
+                    <select id="tipoAsistente" formControlName="tipoAsistente" class="form-select">
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Emprendedor inscrito a pitch">Emprendedor inscrito a pitch</option>
+                        <option value="Invitado especial (invitado extranjero, organizador y aliado estratégico)">
+                            Invitado especial (invitado extranjero, organizador y aliado estratégico)
+                        </option>
+                        <option value="Asistente general"> Asistente general
+                        </option>
+                        <option value="Otro">Otro / ¿Cuál?</option>
+                    </select>
+                    <div *ngIf="registroCongresoForm.get('tipoAsistente')?.invalid && registroCongresoForm.get('tipoAsistente')?.touched"
+                        class="text-danger">
+                        <small>
+                            Debe seleccionar el tipo de asistente
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <div *ngIf="registroCongresoForm.get('tipoAsistente')?.value === 'Otro'">
+                        <label for="otroAsistente" class="form-label">Especifica</label>
+                        <input type="text" id="otroAsistente" formControlName="otroAsistente" class="form-control"
+                            placeholder="Especifica el tipo de asistente" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card p-3 mb-3">
+            <label>De acuerdo con sus intereses de participación en el evento, evalúe las siguientes expectativas
+            </label><br>
+            <div class="table-responsive table table-sm table-bordered table-responsive-sm">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Expectativa</th>
+                            <th *ngFor="let opcion of opcionesInteres">{{ opcion }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let expectativa of expectativas; let i = index">
+                            <td>{{ expectativa.descripcion }}</td>
+                            <td *ngFor="let opcion of opcionesInteres">
+                                <input type="radio" [formControlName]="expectativa.id" [name]="expectativa.id"
+                                    [value]="opcion" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card p-3 mb-3">
+            <div class="mb-3">
+                <label for="comoTeEnterasteEvento" class="form-label">¿Cómo te enteraste del evento?</label>
+                <div class="form-check">
+                    <input type="checkbox" id="divulgacionEventoRedesSociales"
+                        formControlName="divulgacionEventoRedesSociales" class="form-check-input" />
+                    <label for="divulgacionEventoRedesSociales" class="form-check-label">Redes sociales</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="divulgacionEventoSitioWeb" formControlName="divulgacionEventoSitioWeb"
+                        class="form-check-input" />
+                    <label for="divulgacionEventoSitioWeb" class="form-check-label">Sitio web oficial</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="divulgacionEventoCorreoElectronico"
+                        formControlName="divulgacionEventoCorreoElectronico" class="form-check-input" />
+                    <label for="divulgacionEventoCorreoElectronico" class="form-check-label">Correo electrónico</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="divulgacionEventoRecomendacion"
+                        formControlName="divulgacionEventoRecomendacion" class="form-check-input" />
+                    <label for="divulgacionEventoRecomendacion" class="form-check-label">Recomendación voz a voz</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="divulgacionEventoAnuncios" formControlName="divulgacionEventoAnuncios"
+                        class="form-check-input" />
+                    <label for="divulgacionEventoAnuncios" class="form-check-label">Anuncios en
+                        línea</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="divulgacionEventoOrganizacion"
+                        formControlName="divulgacionEventoOrganizacion" class="form-check-input" />
+                    <label for="divulgacionEventoOrganizacion" class="form-check-label">En la organización que
+                        pertenezco</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="divulgacionEventoOtro" formControlName="divulgacionEventoOtro"
+                        class="form-check-input" />
+                    <label for="divulgacionEventoOtro" class="form-check-label">Otro</label>
+                </div>
+                <div *ngIf="registroCongresoForm.get('divulgacionEventoOtro')?.value" class="mt-2">
+                    <label for="divulgacionEventoOtroDescripcion" class="form-label">¿Cuál?</label>
+                    <input type="text" id="divulgacionEventoOtroDescripcion"
+                        formControlName="divulgacionEventoOtroDescripcion" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-3 mb-3">
+            <div class="mb-3">
+                <div class="form-check">
+                    <input type="checkbox" id="aceptaEnvioComunicacion" formControlName="aceptaEnvioComunicacion"
+                        class="form-check-input" />
+                    <label for="aceptaEnvioComunicacion" class="form-check-label">Acepto envío de comunicación por parte
+                        de la
+                        organización del evento y aliados oficiales</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="aceptaTerminosYCondicionesTratamientoDatos"
+                        formControlName="aceptaTerminosYCondicionesTratamientoDatos" class="form-check-input" />
+                    <label for="aceptaTerminosYCondicionesTratamientoDatos" class="form-check-label">He leído y acepto
+                        los términos y condiciones de la política de tratamiento de datos</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-registro-congreso w-100">Realizar
+                    inscripción</button>
+            </div>
+            <div class="col-md-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-registro-congreso w-100"
+                    (click)="navegarRuta('/')">Regresar</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,49 @@
+<div class="container mt-5 p-3">
+    <div class="card mb-4 p-3 justify-content">
+        <h4>Evaluar Emprendimientos asignados</h4>
+    </div>
+
+    <div class="card p-3 mb-4">
+        <div class="table-responsive ">
+            <table class="table table-bordered table-hover table table-light table-striped">
+                <thead>
+                    <tr>
+                        <th>Estado</th>
+                        <th>Descripción de la Idea</th>
+                        <th>Propuesta de solución</th>
+                        <th>Evaluar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let emprendimiento of emprendimientosPaginados">
+                        <td class="tabla-td">{{ emprendimiento.estado }}</td>
+                        <td class="tabla-td">{{ emprendimiento.descripcionIdea }}</td>
+                        <td class="tabla-td">{{ emprendimiento.propuestaSolucion }}</td>
+                        <td class="tabla-td">
+                            <button class="btn btn-primary btn-registro-congreso"
+                                (click)="abrirModalEvaluacion(emprendimiento)">Evaluar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card p-3 mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <ngb-pagination [collectionSize]="emprendimientos.length" [(page)]="pagina" [pageSize]="tamanoPagina"
+                (pageChange)="onCambioPagina($event)">
+            </ngb-pagination>
+
+            <div class="text-center">
+                <span>Total de registros: {{ totalItems }}</span>
+            </div>
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary btn-registro-congreso w-100"
+                    (click)="navegarRuta('/administracion/opciones')">Regresar</button>
+            </div>
+        </div>
+    </div>
+    <div class="card p-3 mb-4">
+    </div>
+</div>

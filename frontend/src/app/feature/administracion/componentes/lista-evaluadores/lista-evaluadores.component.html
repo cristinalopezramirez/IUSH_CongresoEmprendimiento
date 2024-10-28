@@ -1,0 +1,51 @@
+<div class="container mt-4 mb-4">
+    <div class="card mb-4 p-3 justify-content">
+        <h4>Lista de Evaluadores</h4>
+    </div>
+    <div class="card mb-4 p-3">
+        <table class="table table-light table-striped table-sm tabla-institucion">
+            <thead class="table">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Documento de identidad</th>
+                    <th>País</th>
+                    <th>Institución Educativa</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let evaluador of evaluadoresPaginados">
+                    <td class="tabla-td">{{ evaluador.nombre }}</td>
+                    <td class="tabla-td">{{ evaluador.documentoIdentidad }}</td>
+                    <td class="tabla-td">{{ evaluador.nombrePais }}</td>
+                    <td class="tabla-td">{{ evaluador.nombreInstitucion }}</td>
+                    <td class="tabla-td">{{ evaluador.correo }}</td>
+                    <td class="tabla-td">{{ evaluador.telefono}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center contenedor-paginacion">
+        <ngb-pagination [collectionSize]="evaluadores.length" [(page)]="pagina" [pageSize]="tamanoPagina"
+            (pageChange)="onCambioPagina($event)">
+        </ngb-pagination>
+
+        <div class="text-center">
+            <span>Total de registros: {{ totalItems }}</span>
+        </div>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary btn-registro-congreso w-100"
+                (click)="exportarRegistros()">Exportar</button>
+        </div>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-secondary w-100"
+                (click)="navegarRuta('/administracion/opciones')">Regresar</button>
+        </div>
+
+    </div>
+</div>

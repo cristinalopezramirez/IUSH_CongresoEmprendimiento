@@ -1,0 +1,136 @@
+
+<div class="container contenedor-registro mt-5"
+    *ngIf="!responderPreguntasEmprendimiento">
+    <form [formGroup]="registroEmprendedorForm" (ngSubmit)="registrarEmprendedor()" novalidate>
+        <div class="card p-3 mb-3">
+            <div class="row mb-3">
+                <div class="col-md-4 mb-2">
+                    <label for="nombres" class="form-label">Nombres del emprendedor</label>
+                    <input type="text" id="nombres" formControlName="nombres" class="form-control"
+                        placeholder="Ingrese sus nombres" />
+                    <div *ngIf="registroEmprendedorForm.get('nombres')?.invalid && 
+                    registroEmprendedorForm.get('nombres')?.touched" class="text-danger">
+                        <small>
+                            El nombre es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="apellidos" class="form-label">Apellidos del emprendedor</label>
+                    <input type="text" id="apellidos" formControlName="apellidos" class="form-control"
+                        placeholder="Ingrese sus apellidos" />
+                    <div *ngIf="registroEmprendedorForm.get('apellidos')?.invalid && 
+                    registroEmprendedorForm.get('apellidos')?.touched" class="text-danger">
+                        <small>
+                            El apellido es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="documentoIdentidad" class="form-label">Documento de identidad</label>
+                    <input type="text" id="documentoIdentidad" formControlName="documentoIdentidad" class="form-control"
+                        placeholder="Ingresa su documento de identidad" solo-numeros />
+                    <div *ngIf="registroEmprendedorForm.get('documentoIdentidad')?.touched && registroEmprendedorForm.get('documentoIdentidad')?.invalid"
+                        class="text-danger">
+                        <small>El documento de identidad es requerido.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 mb-2">
+                    <label for="correoElectronicoPersonal" class="form-label">Correo electrónico personal</label>
+                    <input type="text" id="correoElectronicoPersonal" formControlName="correoElectronicoPersonal"
+                        class="form-control" placeholder="Ingrese su correo electrónico personal" />
+                    <div *ngIf="registroEmprendedorForm.get('correoElectronicoPersonal')?.invalid && 
+                    registroEmprendedorForm.get('correoElectronicoPersonal')?.touched" class="text-danger">
+                        <small>
+                            El correo personal es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="correoElectronicoInstitucional" class="form-label">Correo electrónico
+                        institucional</label>
+                    <input type="text" id="correoElectronicoInstitucional"
+                        formControlName="correoElectronicoInstitucional" class="form-control"
+                        placeholder="Ingrese su correo electrónico institucional" />
+                    <div *ngIf="registroEmprendedorForm.get('correoElectronicoInstitucional')?.invalid && 
+                    registroEmprendedorForm.get('correoElectronicoInstitucional')?.touched" class="text-danger">
+                        <small>
+                            El correo institucional es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="numeroTelefono" class="form-label">Teléfono</label>
+                    <input type="text" id="numeroTelefono" formControlName="numeroTelefono" class="form-control"
+                        placeholder="Ingrese su teléfono" solo-numeros />
+                    <div *ngIf="registroEmprendedorForm.get('numeroTelefono')?.touched && registroEmprendedorForm.get('numeroTelefono')?.invalid"
+                        class="text-danger">
+                        <small>El teléfono es requerido.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 mb-2">
+                    <label for="pais" class="form-label">País</label>
+                    <select id="pais" formControlName="pais" class="form-select" (change)="paisSeleccionado($event)">
+                        <option value="" disabled selected>Selecciona tu país</option>
+                        <option *ngFor="let pais of paises" [value]="pais._id">{{ pais.descripcion }}</option>
+                    </select>
+                    <div *ngIf="registroEmprendedorForm.get('pais')?.touched && registroEmprendedorForm.get('pais')?.invalid"
+                        class="text-danger">
+                        <small>Debe seleccionar un país.</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="ciudadResidencia" class="form-label">Ciudad</label>
+                    <input type="text" id="ciudadResidencia" formControlName="ciudadResidencia" class="form-control"
+                        placeholder="Ingresa tu ciudad" />
+                    <div *ngIf="registroEmprendedorForm.get('ciudadResidencia')?.touched && registroEmprendedorForm.get('ciudadResidencia')?.invalid"
+                        class="text-danger">
+                        <small>La ciudad es requerida.</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="idIES" class="form-label">Nombre de la institución educativa a la que
+                        pertenece</label>
+                    <select id="idIES" formControlName="idIES" class="form-select">
+                        <option value="" disabled selected>Selecciona la Institución</option>
+                        <option *ngFor="let institucion of instituciones" [value]="institucion._id">{{
+                            institucion.nombre }}
+                        </option>
+                    </select>
+                    <div *ngIf="registroEmprendedorForm.get('idIES')?.touched && registroEmprendedorForm.get('idIES')?.invalid"
+                        class="text-danger">
+                        <small>Debe seleccionar una institución.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-12 mb-2">
+                    <label for="programaAcademico" class="form-label">Programa académico al que pertenece</label>
+                    <input type="text" id="programaAcademico" formControlName="programaAcademico" class="form-control"
+                        placeholder="Ingresa el programa acdémico" />
+                    <div *ngIf="registroEmprendedorForm.get('programaAcademico')?.touched && registroEmprendedorForm.get('programaAcademico')?.invalid"
+                        class="text-danger">
+                        <small>El programa académico es requerido.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-registro-emprendedor w-100">Registrar</button>
+            </div>
+            <div class="col-md-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-registro-emprendedor w-100"
+                    (click)="navegarRuta('/')">Regresar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container contenedor-preguntas-emprendimiento" *ngIf="responderPreguntasEmprendimiento">
+    <app-preguntas-emprendimiento [emprendedorCreado]="emprendedor"></app-preguntas-emprendimiento>
+</div>

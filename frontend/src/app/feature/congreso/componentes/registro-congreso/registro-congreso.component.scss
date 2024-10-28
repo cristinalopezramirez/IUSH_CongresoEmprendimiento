@@ -1,0 +1,21 @@
+.btn-registro-congreso {
+  background: #2C5C85;
+
+  &:hover {
+    background-color: lighten(#2C5C85, 25%);
+    border-color: lighten(#2C5C85, 25%);
+  }
+}
+
+@media (max-width: 768px) {
+
+  .table-responsive td,
+  .table-responsive th {
+    white-space: normal;
+   font-size: 11px;
+  }
+
+  .table-responsive input[type="radio"] {
+    transform: scale(1.2);
+  }
+}

@@ -1,0 +1,109 @@
+.middle-content {
+  background-image: url('/congreso_emprendimiento/assets/imagenes/fondo_congreso.png');
+  //background-image: url('/iush-congreso-emprendimiento-angular/assets/imagenes/fondo_congreso.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  position: relative;
+}
+
+.overlay-logo {
+  position: absolute;
+  left: 2rem;
+  top: 0px;
+  max-width: 28vw;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.registrar-emprendedor {
+  visibility: hidden;
+}
+
+.asistencia-congreso {
+  visibility: hidden;
+}
+
+.agenda-congreso {
+  visibility: hidden;
+
+}
+.evaluacion-congreso-pitch {
+  visibility: hidden;
+
+}
+
+@media (max-width: 768px) {
+  .overlay-logo {
+    width: 55%;
+    max-width: 55vw;
+    left: 5rem;
+  }
+
+  .registrar-emprendedor {
+    visibility: visible;
+    position: absolute;
+    top: 15rem;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #347dc3 100%, #e75b27 100%);
+
+    button {
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+
+  .asistencia-congreso {
+    visibility: visible;
+    position: absolute;
+    top: 19rem;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #347dc3 100%, #e75b27 100%);
+
+    button {
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+
+  .agenda-congreso {
+    visibility: visible;
+    position: absolute;
+    top: 23rem;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #347dc3 100%, #e75b27 100%);
+
+    button {
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+
+  .evaluacion-congreso-pitch {
+    visibility: visible;
+    position: absolute;
+    top: 27rem;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #347dc3 100%, #e75b27 100%);
+
+    button {
+      color: #fff;
+      font-weight: bold;
+    }
+  
+  }
+
+  .swal2-popup.swal2-modal.swal2-icon-question.swal2-show {
+    width: 70% !important;
+  }
+
+}

@@ -1,0 +1,132 @@
+<div class="container-fluid contenedor-administracion">
+	<div class="row">
+		<main class="ms-sm-auto col-lg-12 p-4 px-md-4">
+			<div
+				class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h4 class="titulo-adminstracion">Administración</h4>
+			</div>
+			<div class="content p-3" *ngIf="perfilEsAdministrador">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/lista-emprendimientos')">Listar
+									Emprendimientos</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/asignar-emprendimiento-evaluador')">
+									Asignar Evaluador</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion sin-fondo">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/registro-institucion')">Registrar
+									Instituciones</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion sin-fondo">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/lista-instituciones')">Listar
+									Instituciones</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/registro-evaluador')">Registrar
+									Evaluador</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/lista-evaluadores')">Listar
+									Evaluador</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion sin-fondo">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/inscritos-congreso')">Listar
+									inscritos al congreso</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion sin-fondo">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/evaluacion-resultados')">Resultados
+									Evaluaciones</h5>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/lista-emprendimientos-pitch')">Listar
+									emprendimientos en PITCH</h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/resultados-pitch')">Resultados Evaluaciones PITCH</h5>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<div class="content" *ngIf="!perfilEsAdministrador">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card mb-4 shadow-sm text-center opciones-administracion">
+							<div class="card-body">
+								<h5 class="card-title"
+									(click)="navegarRuta('/administracion/opciones/evaluacion-emprendimiento')">Evaluar
+									Emprendimientos</h5>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="content">
+				<br>
+				<br><br><br><br><br>
+			</div>
+		</main>
+	</div>
+</div>

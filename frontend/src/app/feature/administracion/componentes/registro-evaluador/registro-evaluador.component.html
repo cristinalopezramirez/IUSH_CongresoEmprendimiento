@@ -1,0 +1,88 @@
+<div class="container mt-5 p-3">
+    <form [formGroup]="registroEvaluadorForm" (ngSubmit)="registroEvaluador()" novalidate>
+        <div class="card p-3 mb-4">
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" id="nombre" formControlName="nombre" class="form-control"
+                        placeholder="Ingresa el nombre del evaluador" />
+                    <div *ngIf="registroEvaluadorForm.get('nombre')?.invalid && 
+                    registroEvaluadorForm.get('nombre')?.touched" class="text-danger">
+                        <small>
+                            El nombre del evaluador es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="documentoIdentidad" class="form-label">Documento de identidad</label>
+                    <input type="text" id="documentoIdentidad" formControlName="documentoIdentidad" class="form-control"
+                        placeholder="Ingresa el documento de identidad" />
+                    <div *ngIf="registroEvaluadorForm.get('documentoIdentidad')?.invalid && 
+                    registroEvaluadorForm.get('documentoIdentidad')?.touched" class="text-danger">
+                        <small>
+                            El documento de identidad es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" id="telefono" formControlName="telefono" class="form-control"
+                        placeholder="Ingresa el teléfono" />
+                    <div *ngIf="registroEvaluadorForm.get('telefono')?.invalid && 
+                    registroEvaluadorForm.get('telefono')?.touched" class="text-danger">
+                        <small>
+                            El teléfono es requerido.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                    <input type="email" id="correo" formControlName="correo" class="form-control"
+                        placeholder="Ingresa el correo electrónico" />
+                    <div *ngIf="registroEvaluadorForm.get('correo')?.invalid && 
+                    registroEvaluadorForm.get('correo')?.touched" class="text-danger">
+                        <small>
+                            El correo electrónico es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="pais" class="form-label">País</label>
+                    <select id="pais" formControlName="pais" class="form-select" (change)="paisSeleccionado($event)">
+                        <option value="" disabled selected>Selecciona tu país</option>
+                        <option *ngFor="let pais of paises" [value]="pais._id">{{ pais.descripcion }}</option>
+                    </select>
+                    <div *ngIf="registroEvaluadorForm.get('pais')?.touched && registroEvaluadorForm.get('pais')?.invalid"
+                        class="text-danger">
+                        <small>Debe seleccionar un país.</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="idIES" class="form-label">Institución Educativa</label>
+                    <select id="idIES" formControlName="idIES" class="form-select">
+                        <option value="" disabled selected>Selecciona la Institución</option>
+                        <option *ngFor="let institucion of instituciones" [value]="institucion._id">{{
+                            institucion.nombre }}
+                        </option>
+                    </select>
+                    <div *ngIf="registroEvaluadorForm.get('idIES')?.touched && registroEvaluadorForm.get('idIES')?.invalid"
+                        class="text-danger">
+                        <small>Debe seleccionar una institución.</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row justify-content-center mt-2 mb-4">
+            <div class="col-md-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-registro-evaluador w-100">Registrar</button>
+            </div>
+            <div class="col-md-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-registro-evaluador w-100"
+                    (click)="navegarRuta('/administracion/opciones')">Regresar</button>
+            </div>
+        </div>
+    </form>
+</div>

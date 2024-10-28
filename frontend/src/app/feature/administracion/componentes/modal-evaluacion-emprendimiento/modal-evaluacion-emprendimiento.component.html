@@ -1,0 +1,86 @@
+<div class="modal-header contenedor-preguntas-evaluacion">
+    <h5 class="modal-title">Evaluar Emprendimiento</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="evaluacionForm">
+      
+        <div *ngIf="mostrarModuloIdea" class="mb-3">
+            <h5>Evaluación de la Idea</h5>
+            <table class="table table-bordered table-hover table table-light table-striped">
+              <thead>
+                <tr>
+                  <th>Pregunta</th>
+                  <th>Descripción</th>
+                  <th>Puntaje</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="preguntasIdea">
+                <tr *ngFor="let pregunta of preguntasIdea.controls; let i = index" [formGroupName]="i">
+                  <td class="tabla-td">{{ pregunta.get('pregunta')?.value }}</td>
+                  <td class="tabla-td">{{ pregunta.get('descripcion')?.value }}</td>
+                  <td class="tabla-td">
+                    <select class="form-select" formControlName="puntaje">
+                      <option *ngFor="let puntaje of puntajes" [value]="puntaje">{{ puntaje }} - {{ obtenerPuntajes(puntaje) }}</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      
+          <!-- Módulo de Desarrollo -->
+          <div *ngIf="mostrarModuloDesarrollo" class="mb-3">
+            <h5>Evaluación del Desarrollo</h5>
+            <table class="table table-bordered table-hover table table-light table-striped">
+              <thead>
+                <tr>
+                  <th>Pregunta</th>
+                  <th>Descripción</th>
+                  <th>Puntaje</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="preguntasDesarrollo">
+                <tr *ngFor="let pregunta of preguntasDesarrollo.controls; let i = index" [formGroupName]="i">
+                  <td class="tabla-td">{{ pregunta.get('pregunta')?.value }}</td>
+                  <td class="tabla-td">{{ pregunta.get('descripcion')?.value }}</td>
+                  <td class="tabla-td">
+                    <select class="form-select" formControlName="puntaje">
+                      <option *ngFor="let puntaje of puntajes" [value]="puntaje">{{ puntaje }} - {{ obtenerPuntajes(puntaje) }}</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      
+          <!-- Módulo de Lanzamiento -->
+          <div *ngIf="mostrarModuloLanzamiento" class="mb-3">
+            <h5>Evaluación del Lanzamiento</h5>
+            <table class="table table-bordered table-hover table table-light table-striped">
+              <thead>
+                <tr>
+                  <th>Pregunta</th>
+                  <th>Descripción</th>
+                  <th>Puntaje</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="preguntasLanzamiento">
+                <tr *ngFor="let pregunta of preguntasLanzamiento.controls; let i = index" [formGroupName]="i">
+                  <td class="tabla-td">{{ pregunta.get('pregunta')?.value }}</td>
+                  <td class="tabla-td">{{ pregunta.get('descripcion')?.value }}</td>
+                  <td class="tabla-td">
+                    <select class="form-select" formControlName="puntaje">
+                      <option *ngFor="let puntaje of puntajes" [value]="puntaje">{{ puntaje }} - {{ obtenerPuntajes(puntaje) }}</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-registro-congreso" (click)="activeModal.dismiss()">Cancelar</button>
+    <button type="button" class="btn btn-primary btn-registro-congreso" (click)="guardarEvaluacion()">Guardar</button>
+  </div>

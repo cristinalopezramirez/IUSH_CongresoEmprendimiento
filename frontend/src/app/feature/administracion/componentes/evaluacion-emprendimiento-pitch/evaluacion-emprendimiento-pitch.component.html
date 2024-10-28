@@ -1,0 +1,81 @@
+<div class="container mt-5 p-3">
+    <div class="mb-2 p-3 justify-content">
+        <h5>Evaluar Emprendimientos Pitch</h5>
+    </div>
+
+    <form [formGroup]="registroEvaluacionPitchForm" (ngSubmit)="registroEvaluacionPitch()" novalidate>
+        <div class="card p-3 mb-4">
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" id="nombre" formControlName="nombre" class="form-control"
+                        placeholder="Ingresa el nombre" />
+                    <div *ngIf="registroEvaluacionPitchForm.get('nombre')?.invalid && 
+                    registroEvaluacionPitchForm.get('nombre')?.touched" class="text-danger">
+                        <small>
+                            El nombre es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                    <input type="email" id="correo" formControlName="correo" class="form-control"
+                        placeholder="Ingresa el correo electrónico" />
+                    <div *ngIf="registroEvaluacionPitchForm.get('correo')?.invalid && 
+                    registroEvaluacionPitchForm.get('correo')?.touched" class="text-danger">
+                        <small>
+                            El correo electrónico es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="emprendimiento" class="form-label">Emprendimiento</label>
+                    <select id="emprendimiento" formControlName="emprendimiento" class="form-select">
+                        <option value="" disabled selected>Selecciona un emprendimiento</option>
+                        <option *ngFor="let emprendimiento of emprendimientosPitch"
+                            [value]="emprendimiento.emprendimiento">
+                            {{ emprendimiento.integrantes }}</option>
+                    </select>
+                    <div *ngIf="registroEvaluacionPitchForm.get('emprendimiento')?.touched &&
+                     registroEvaluacionPitchForm.get('emprendimiento')?.invalid" class="text-danger">
+                        <small>Debe seleccionar un emprendimiento.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-3 mb-4" *ngIf="mostrarEvaluacionPitch">
+            <h5>Evaluación Pitch</h5>
+            <table class="table table-bordered table-hover table table-light table-striped">
+                <thead>
+                    <tr>
+                        <th>Pregunta</th>
+                        <th>Puntaje</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="preguntas">
+                    <tr *ngFor="let pregunta of preguntas.controls; let i = index" [formGroupName]="i">
+                        <td class="tabla-td">{{ pregunta.get('pregunta')?.value }}</td>
+                        <td class="tabla-td">
+                            <select class="form-select" formControlName="puntaje">
+                                <option *ngFor="let puntaje of puntajes" [value]="puntaje">{{ puntaje }} - {{
+                                    obtenerPuntajes(puntaje) }}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row justify-content-center mt-2 mb-4">
+            <div class="col-md-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-registro-congreso w-100">Registrar Evaluación
+                </button>
+            </div>
+            <div class="col-md-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-registro-congreso w-100"
+                    (click)="navegarRuta('/')">Regresar</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,61 @@
+<div class="container mt-5">
+    <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" novalidate>
+        <div class="p-3 mb-3">
+            <div class="row justify-content-center">
+                <div class="col-md-5 mb-2">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h4>Iniciar Sesión</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="perfil" class="form-label">Perfil</label>
+                                <select id="perfil" formControlName="perfil" class="form-select">
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Evaluador">Evaluador</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="correo" class="form-label">Correo Electrónico</label>
+                                <input placeholder="Ingresa tu correo" type="email" id="correo" class="form-control"
+                                    formControlName="correo" required>
+                                <div *ngIf="loginForm.get('correo')?.invalid && 
+                                    loginForm.get('correo')?.touched" class="text-danger">
+                                    <small>
+                                        El correo electrónico es requerido.
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="documentoIdentidad" class="form-label">Contraseña</label>
+                                <input type="password" placeholder="Ingresa tu contraseña"
+                                    id="documentoIdentidad" class="form-control" formControlName="documentoIdentidad"
+                                    required>
+                                <div *ngIf="loginForm.get('documentoIdentidad')?.invalid && 
+                                    loginForm.get('documentoIdentidad')?.touched" class="text-danger">
+                                    <small>
+                                        La contraseña es requerida.
+                                    </small>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-3">
+                <div class="col-md-2 mb-4">
+                    <button type="submit" class="btn btn-primary btn-login w-100" [disabled]="loginForm.invalid">Iniciar
+                        Sesión</button>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <button type="submit" class="btn btn-primary btn-login w-100"
+                        (click)="navegarRuta('/')">Regresar</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

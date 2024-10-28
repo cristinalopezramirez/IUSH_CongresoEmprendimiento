@@ -1,0 +1,62 @@
+<div class="container mt-4">
+    <h5>Resultados - Evaluaciones Emprendimientos...</h5>
+    <form [formGroup]="evaluacionesAplicaPitchForm">
+
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="text-end"></div>
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary btn-registro-congreso w-100"
+                    (click)="enviarEmprendimientosAPitch()">Enviar emprendimientos a Pitch</button>
+            </div>
+        </div>
+
+
+        <div class="table-responsive ">
+            <table class="table table-bordered table-hover table table-light table-striped">
+                <thead>
+                    <tr>
+                        <th>Etapa</th>
+                        <th>Institución Educativa</th>
+                        <th>Promedio</th>
+                        <th>Integrantes</th>
+                        <th>Correo Institucional</th>
+                        <th>Correo Personal</th>
+                        <th>Asignado Pitch</th>
+                        <th>Aplica para Pitch</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let emprendimiento of emprendimientosPaginados">
+                        <td class="tabla-td">{{ emprendimiento.estado }}</td>
+                        <td class="tabla-td">{{ emprendimiento.institucion }}</td>
+                        <td class="tabla-td">{{ emprendimiento.promedio }}</td>
+                        <td class="tabla-td">{{ emprendimiento.integrantes }}</td>
+                        <td class="tabla-td">{{ emprendimiento.correoElectronicoInstitucional }}</td>
+                        <td class="tabla-td">{{ emprendimiento.correoElectronicoPersonal }}</td>
+                        <td class="tabla-td text-center">{{emprendimiento.pasaAPitch ? 'Sí' : 'No' }}</td>
+                        <td class="tabla-td text-center">
+                            <input type="checkbox" *ngIf="!emprendimiento.pasaAPitch"
+                                (change)="toggleEmprendimiento(emprendimiento)" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <ngb-pagination [collectionSize]="emprendimientos.length" [(page)]="pagina" [pageSize]="tamanoPagina"
+                (pageChange)="onCambioPagina($event)">
+            </ngb-pagination>
+
+            <div class="text-center">
+                <span>Total de registros: {{ totalItems }}</span>
+            </div>
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary btn-registro-congreso w-100"
+                    (click)="navegarRuta('/administracion/opciones')">Regresar</button>
+            </div>
+        </div>
+    </form>
+</div>

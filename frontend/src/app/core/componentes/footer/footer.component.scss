@@ -1,0 +1,35 @@
+footer {
+  // background: linear-gradient(180deg, #bfe0ff 28%, #a887e9 100%);
+  background-color: #b5def1;
+  color: #ffffff;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 0;
+}
+
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-logo img {
+  max-width: 100%;
+  height: auto;
+
+  footer .text-center {
+    padding: 10px 0;
+  }
+}
+
+.container {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .footer-logo img {
+    width: 100%;
+    max-width: 100vw;
+
+  }
+}

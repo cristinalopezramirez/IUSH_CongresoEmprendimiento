@@ -1,0 +1,100 @@
+<div class="container mt-5 p-3">
+    <form [formGroup]="registroInstitucionForm" (ngSubmit)="registroInstitucion()" novalidate>
+        <div class="card p-3 mb-4">
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" id="nombre" formControlName="nombre" class="form-control"
+                        placeholder="Ingresa el nombre de la institución" />
+                    <div *ngIf="registroInstitucionForm.get('nombre')?.invalid && 
+                    registroInstitucionForm.get('nombre')?.touched" class="text-danger">
+                        <small>
+                            El nombre de la institución es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="pais" class="form-label">País</label>
+                    <select id="pais" formControlName="pais" class="form-select">
+                        <option value="" disabled selected>Selecciona tu país</option>
+                        <option *ngFor="let pais of paises" [value]="pais._id">{{ pais.descripcion }}</option>
+                    </select>
+                    <div *ngIf="registroInstitucionForm.get('pais')?.touched && registroInstitucionForm.get('pais')?.invalid"
+                        class="text-danger">
+                        <small>Debe seleccionar un país.</small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="regionDepartamento" class="form-label">Departamento</label>
+                    <input type="text" id="regionDepartamento" formControlName="regionDepartamento" class="form-control"
+                        placeholder="Ingresa el Departamento" />
+                    <div *ngIf="registroInstitucionForm.get('regionDepartamento')?.invalid && 
+                    registroInstitucionForm.get('regionDepartamento')?.touched" class="text-danger">
+                        <small>
+                            El departamento es requerido.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label for="nombreLiderIES" class="form-label">Nombre del lider</label>
+                    <input type="text" id="nombreLiderIES" formControlName="nombreLiderIES" class="form-control"
+                        placeholder="Ingresa el nombre del lider" />
+                    <div *ngIf="registroInstitucionForm.get('nombreLiderIES')?.invalid && 
+                    registroInstitucionForm.get('nombreLiderIES')?.touched" class="text-danger">
+                        <small>
+                            El nombre del lider es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="correoContacto" class="form-label">Correo electrónico</label>
+                    <input type="email" id="correoContacto" formControlName="correoContacto" class="form-control"
+                        placeholder="Ingresa el correo electrónico" />
+                    <div *ngIf="registroInstitucionForm.get('correoContacto')?.invalid && 
+                    registroInstitucionForm.get('correoContacto')?.touched" class="text-danger">
+                        <small>
+                            El correo electrónico es requerido.
+                        </small>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="telefonoContacto" class="form-label">Teléfono</label>
+                    <input type="text" id="telefonoContacto" formControlName="telefonoContacto" class="form-control"
+                        placeholder="Ingresa el teléfono" />
+                    <div *ngIf="registroInstitucionForm.get('telefonoContacto')?.invalid && 
+                    registroInstitucionForm.get('telefonoContacto')?.touched" class="text-danger">
+                        <small>
+                            El teléfono es requerido.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label for="urlOficial" class="form-label">Sitio web</label>
+                    <input type="text" id="urlOficial" formControlName="urlOficial" class="form-control"
+                        placeholder="Ingresa el sitio web de la institución" />
+                    <div *ngIf="registroInstitucionForm.get('urlOficial')?.invalid && 
+                    registroInstitucionForm.get('urlOficial')?.touched" class="text-danger">
+                        <small>
+                            El sitio web es requerido.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-2 mb-4">
+            <div class="col-md-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-registro-congreso w-100">Registrar
+                </button>
+            </div>
+            <div class="col-md-3 mb-4">
+                <button type="submit" class="btn btn-primary btn-registro-congreso w-100"
+                    (click)="navegarRuta('/administracion/opciones')">Regresar</button>
+            </div>
+        </div>
+    </form>
+</div>

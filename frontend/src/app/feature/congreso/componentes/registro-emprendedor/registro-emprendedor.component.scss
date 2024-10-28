@@ -1,0 +1,22 @@
+.btn-registro-emprendedor {
+  background: #2C5C85;
+
+  &:hover {
+    background-color: lighten(#2C5C85, 25%);
+    border-color: lighten(#2C5C85, 25%);
+  }
+}
+
+@media (max-width: 576px) {
+  select.form-select {
+    width: 100%;
+  }
+}
+
+.container.contenedor-pdf {
+  width: 70%;
+}
+
+.terminos-condiciones {
+  text-align: center;
+}

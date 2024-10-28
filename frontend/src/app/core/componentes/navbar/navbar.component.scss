@@ -1,0 +1,46 @@
+.navbar {
+  background: linear-gradient(180deg, #bfe0ff 28%, #a887e9 100%);
+  color: #fff;
+
+  .navbar-brand,
+  .nav-link {
+    color: #686868;
+    font-weight: bold;
+
+    &:hover {
+      color: #686868;
+      cursor: pointer;
+    }
+  }
+
+  .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='%23fff' class='bi bi-list' viewBox='0 0 16 16'%3e%3cpath fill-rule='evenodd' d='M2.5 12.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5z'/%3e%3c/svg%3e");
+  }
+
+  .navbar-logo {
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.opciones-congreso a.nav-link {
+  border: 1px solid;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .opciones-congreso {
+    display: none;
+  }
+
+  a.navbar-logo {
+    width: 20%;
+  }
+}
+

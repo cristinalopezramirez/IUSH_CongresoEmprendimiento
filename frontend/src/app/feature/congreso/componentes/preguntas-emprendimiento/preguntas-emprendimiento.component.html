@@ -1,0 +1,106 @@
+<div class="container mt-5">
+
+    <div class="contenedor-preguntas-principales">
+        <form [formGroup]="registroPreguntasEmprendedorForm" (ngSubmit)="registrarPreguntasEmprendedor()" novalidate>
+            <div class="card p-3 mb-3">
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-2">
+                        <label for="descripcionIdea" class="form-label">Descripción de la idea de negocio o del
+                            emprendimiento</label>
+                        <textarea placeholder="Breve descripción de la necesidad o problema identificado"
+                            class="form-control" formControlName="descripcionIdea" id="descripcionIdea"
+                            rows="3"></textarea>
+                        <div *ngIf="registroPreguntasEmprendedorForm.get('descripcionIdea')?.invalid &&
+                             registroPreguntasEmprendedorForm.get('descripcionIdea')?.touched" class="text-danger">
+                            <small>
+                                Debes indicar la idea de negocio o el emprendimiento
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label for="propuestaSolucion" class="form-label">Propuesta de solución al problema o necesidad
+                            identificada</label>
+                        <textarea placeholder="Breve descripción de la propuesta de solución" class="form-control"
+                            id="propuestaSolucion" formControlName="propuestaSolucion" rows="3"></textarea>
+                        <div *ngIf="registroPreguntasEmprendedorForm.get('propuestaSolucion')?.invalid &&
+                             registroPreguntasEmprendedorForm.get('propuestaSolucion')?.touched" class="text-danger">
+                            <small>
+                                Debes indicar la propuesta de la solución
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-2">
+                        <label for="fecha" class="form-label">Fecha de creación del emprendimiento</label>
+                        <input type="date" id="fecha" class="form-control" formControlName="fecha">
+                        <div *ngIf="registroPreguntasEmprendedorForm.get('fecha')?.invalid &&
+                             registroPreguntasEmprendedorForm.get('fecha')?.touched" class="text-danger">
+                            <small>
+                                La fecha es requerida.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label for="idSector" class="form-label">Sector o industria del emprendimiento</label>
+                        <select id="idSector" formControlName="idSector" class="form-select"
+                            (change)="sectorSeleccionado($event)" [attr.title]="descripcionTooltip"
+                            data-bs-toggle="tooltip">>
+                            <option value="" disabled selected>Selecciona el sector o industria</option>
+                            <option *ngFor="let sector of sectores" [value]="sector._id">{{ sector.sector }}</option>
+                        </select>
+                        <div *ngIf="registroPreguntasEmprendedorForm.get('idSector')?.touched && registroPreguntasEmprendedorForm.get('idSector')?.invalid"
+                            class="text-danger">
+                            <small>Debe seleccionar un sector o industria.</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngFor="let filaPreguntas of obtenerFilas()" class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div *ngFor="let pregunta of filaPreguntas" class="col-md-4 mb-3">
+                            <label class="form-label">{{ pregunta.pregunta }}</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" [name]="'respuesta' + pregunta._id"
+                                        (change)="respuestas[pregunta._id] = true"
+                                        [checked]="respuestas[pregunta._id] === true" required />
+                                    <label class="form-check-label">Sí</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" [name]="'respuesta' + pregunta._id"
+                                        (change)="respuestas[pregunta._id] = false"
+                                        [checked]="respuestas[pregunta._id] === false" required />
+                                    <label class="form-check-label">No</label>
+                                </div>
+                            </div>
+                            <div *ngIf="formularioEnviado && respuestas[pregunta._id] === null" class="text-danger">
+                                La respuesta es obligatoria.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-3 mb-4">
+                    <button type="submit" class="btn btn-primary btn-registro-preguntas w-100">Registrar
+                        Preguntas</button>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <button type="submit" class="btn btn-primary btn-registro-preguntas w-100"
+                        (click)="navegarRuta('/')">Finalizar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<ng-template #loadingTemplate>
+    <p>Cargando preguntas...</p>
+</ng-template>
